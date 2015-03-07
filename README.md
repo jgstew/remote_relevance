@@ -1,8 +1,8 @@
 # remote-relevance
 Evaluate relevance on remote systems using BigFix actions.
 
-computers
-computergroups
-queries
-results
+- computers
+- computergroups
+- queries
+- results
 
