@@ -1,0 +1,7 @@
+{
+    "bigfix_user" : "console_user",
+    "bigfix_pass" : "",
+    "bigfix_server_host" : "root.server.tld",
+    "bigfix_server_port" : "52311",
+    "bigfix_computer_group" : "testing"
+}
