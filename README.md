@@ -13,8 +13,11 @@ Evaluate relevance on remote systems using BigFix actions.
   - /api/computer/{computer id}
 - computergroups
   - /api/computergroup/{site type}/{site name}/{id}/computers
-- queries
-- results
+
+- computergroups
+  - queries
+    - computers
+      - results
 
 #### frameworks
 
