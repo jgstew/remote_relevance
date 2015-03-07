@@ -4,6 +4,7 @@ var config = require('./config.json');
 
 var rest_api_url = "https://" + config.bigfix_server_host + ":" + config.bigfix_server_port + "/api/";
 
+//  http://code.tutsplus.com/tutorials/nodejs-for-beginners--net-26314
 console.log('-------------');
 console.log('-- testing --');
 console.log( rest_api_url );
