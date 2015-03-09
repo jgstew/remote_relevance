@@ -1,3 +1,5 @@
+NOTE: This does not actually work yet. Still in initial development.
+
 # remote-relevance
 Evaluate relevance on remote systems using BigFix actions.
 
