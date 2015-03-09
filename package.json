@@ -1,0 +1,30 @@
+{
+  "name": "remote-relevance",
+  "version": "1.0.0",
+  "description": "Evaluate relevance on remote systems using BigFix actions.",
+  "main": "testing.js",
+  "dependencies": {
+    "strongloop": "^2.10.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgstew/remote-relevance.git"
+  },
+  "keywords": [
+    "bigfix",
+    "relevance",
+    "remote",
+    "IEM",
+    "TEM"
+  ],
+  "author": "James Stewart",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/jgstew/remote-relevance/issues"
+  },
+  "homepage": "https://github.com/jgstew/remote-relevance"
+}
