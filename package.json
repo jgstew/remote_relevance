@@ -4,6 +4,7 @@
   "description": "Evaluate relevance on remote systems using BigFix actions.",
   "main": "testing.js",
   "dependencies": {
+    "loopback-connector-rest": "^1.6.0",
     "strongloop": "^2.10.3"
   },
   "devDependencies": {},
