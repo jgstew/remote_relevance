@@ -29,4 +29,6 @@ Evaluate relevance on remote systems using BigFix actions.
 #### References:
 
 [ IBM DevWorks BigFix REST API Doc ](https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli+Endpoint+Manager/page/REST+API)
-
+http://stackoverflow.com/questions/695438/safe-characters-for-friendly-url
+https://en.wikipedia.org/wiki/Base64
+http://bigfix.me/relevance/details/2163
