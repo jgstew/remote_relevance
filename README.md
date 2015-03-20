@@ -9,6 +9,11 @@ Evaluate relevance on remote systems using BigFix actions.
 - webapp creates a BigFix action using REST API targeting a "testing" computer group
 - action uses relevance substitution to return the result to the webapp using CURL(or similar) on the endpoint
 
+Relevance Substitution on Client:
+    concatenations "~" of (base64 encode it) of unique values of (it as string) of ( THE_RELEVANCE_QUERY_GOES_HERE )
+Example:
+    concatenations "~" of (base64 encode it) of unique values of (it as string) of ( names of regapps )
+
 #### Models?
 
 - computers
@@ -23,8 +28,10 @@ Evaluate relevance on remote systems using BigFix actions.
 
 #### frameworks
 
+Not sure yet: 
 - Node.js
-- Express or Loopback ?
+- WebSockets?
+- Express or Loopback?
 
 #### References:
 
