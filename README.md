@@ -42,3 +42,6 @@ http://stackoverflow.com/questions/695438/safe-characters-for-friendly-url
 https://en.wikipedia.org/wiki/Base64
 
 http://bigfix.me/relevance/details/2163
+
+http://software.bigfix.com/download/bes/misc/BESImport-ExportReference71_080906.pdf
+
