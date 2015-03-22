@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<SingleAction>
+		<Title>RESTAPI: Remote Relevance Template Task TODO</Title>
+		<Relevance>windows of operating system</Relevance>
+		<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// -- START:DOWNLOADS -------------------------
+
+//  - This is the commandline 7zip console which is use to unpack installers
+//  - https://www.virustotal.com/en/file/2a3afe19c180f8373fa02ff00254d5394fec0349f5804e0ad2f6067854ff28ac/analysis
+prefetch 7za.zip sha1:9ce9ce89ebc070fea5d679936f21f9dde25faae0 size:384846 http://softlayer-dal.dl.sourceforge.net/project/sevenzip/7-Zip/9.20/7za920.zip
+
+//  - This unzip is a compiled verion of unzip v5.52 fom http://info-zip.org/
+//  - https://www.virustotal.com/en/file/8d9b5190aace52a1db1ac73a65ee9999c329157c8e88f61a772433323d6b7a4a/analysis
+prefetch unzip.exe sha1:e1652b058195db3f5f754b7ab430652ae04a50b8 size:167936 http://software.bigfix.com/download/redist/unzip-5.52.exe
+
+// Download CURL  http://curl.haxx.se/download.html
+//  - Analysis of the CURL.exe inside:  https://www.virustotal.com/en/file/7e4379dc72cc25e8d546b3f4b4305b93b6521aaae47c1ea2ee49e4cc4ce8b033/analysis/
+prefetch curl.cab sha1:3edb8cfb34ba149ca36b2540cf58a50430a3c8bc size:432989 http://home.arcor.de/skanthak/download/curl-7.38.0.cab
+
+// -- END:DOWNLOADS ---------------------------
+
+
+// http://pic.dhe.ibm.com/infocenter/tivihelp/v26r1/index.jsp?topic=%2Fcom.ibm.tem.doc_8.2%2FPlatform%2FAction%2Fc_action_launch_preference_low_p.html
+// launch exe's with low priority settings to help prevent disrupting the user
+action launch preference low-priority
+
+
+// ADD TO UTILITY CACHE: unzip,7zip,curl
+utility __Download\unzip.exe
+utility __Download\7za.zip
+utility __Download\curl.cab
+
+
+// EXTRACT using unzip: the 7zip command line utility
+waithidden __Download\unzip.exe -o "{pathname of file "7za.zip" of folder "__Download" of client folder of current site}" 7za.exe -d "{pathname of folder "__Download" of client folder of current site}"
+
+// EXTRACT using 7zip: CURL
+waithidden "{ (pathname of file "7za.exe" of folder "__Download" of client folder of current site) }" e -i!Curl.EXE -y -o"{pathname of folder "__Download" of client folder of current site}" "{pathname of file "curl.cab" of folder "__Download" of client folder of current site}"
+
+// CURL
+waithidden "{ (pathname of file "Curl.EXE" of folder "__Download" of client folder of current site) }" -k http://ServerURL:8080/path/query/{ concatenations "~" of (base64 encode it) of unique values of (it as string) of (names of regapps) }
+</ActionScript>
+		<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		<Settings>
+			<PreActionShowUI>false</PreActionShowUI>
+			<HasRunningMessage>false</HasRunningMessage>
+			<HasTimeRange>false</HasTimeRange>
+			<HasStartTime>false</HasStartTime>
+			<HasEndTime>true</HasEndTime>
+			<EndDateTimeLocalOffset>P2H</EndDateTimeLocalOffset>
+			<HasDayOfWeekConstraint>false</HasDayOfWeekConstraint>
+			<UseUTCTime>false</UseUTCTime>
+			<ActiveUserRequirement>NoRequirement</ActiveUserRequirement>
+			<ActiveUserType>AllUsers</ActiveUserType>
+			<HasWhose>false</HasWhose>
+			<PreActionCacheDownload>false</PreActionCacheDownload>
+			<Reapply>false</Reapply>
+			<HasReapplyLimit>true</HasReapplyLimit>
+			<ReapplyLimit>3</ReapplyLimit>
+			<HasReapplyInterval>false</HasReapplyInterval>
+			<HasRetry>false</HasRetry>
+			<HasTemporalDistribution>false</HasTemporalDistribution>
+			<ContinueOnErrors>true</ContinueOnErrors>
+			<PostActionBehavior Behavior="Nothing"></PostActionBehavior>
+			<IsOffer>false</IsOffer>
+		</Settings>
+		<SettingsLocks>
+			<ActionUITitle>false</ActionUITitle>
+			<PreActionShowUI>false</PreActionShowUI>
+			<PreAction>
+				<Text>false</Text>
+				<AskToSaveWork>false</AskToSaveWork>
+				<ShowActionButton>false</ShowActionButton>
+				<ShowCancelButton>false</ShowCancelButton>
+				<DeadlineBehavior>false</DeadlineBehavior>
+				<ShowConfirmation>false</ShowConfirmation>
+			</PreAction>
+			<HasRunningMessage>false</HasRunningMessage>
+			<RunningMessage>
+				<Text>false</Text>
+			</RunningMessage>
+			<TimeRange>false</TimeRange>
+			<StartDateTimeOffset>false</StartDateTimeOffset>
+			<EndDateTimeOffset>false</EndDateTimeOffset>
+			<DayOfWeekConstraint>false</DayOfWeekConstraint>
+			<ActiveUserRequirement>false</ActiveUserRequirement>
+			<ActiveUserType>false</ActiveUserType>
+			<Whose>false</Whose>
+			<PreActionCacheDownload>false</PreActionCacheDownload>
+			<Reapply>false</Reapply>
+			<ReapplyLimit>false</ReapplyLimit>
+			<RetryCount>false</RetryCount>
+			<RetryWait>false</RetryWait>
+			<TemporalDistribution>false</TemporalDistribution>
+			<ContinueOnErrors>false</ContinueOnErrors>
+			<PostActionBehavior>
+				<Behavior>false</Behavior>
+				<AllowCancel>false</AllowCancel>
+				<Deadline>false</Deadline>
+				<Title>false</Title>
+				<Text>false</Text>
+			</PostActionBehavior>
+			<IsOffer>false</IsOffer>
+			<AnnounceOffer>false</AnnounceOffer>
+			<OfferCategory>false</OfferCategory>
+			<OfferDescriptionHTML>false</OfferDescriptionHTML>
+		</SettingsLocks>
+		<IsUrgent>false</IsUrgent>
+	</SingleAction>
+</BES>
