@@ -46,6 +46,11 @@ waithidden "{ (pathname of file "7za.exe" of folder "__Download" of client folde
 waithidden "{ (pathname of file "Curl.EXE" of folder "__Download" of client folder of current site) }" -k { parameter "results_url" }/{ parameter "relevance_result" }
 
 </ActionScript>
+		<Target>
+			<ComputerID>123456787</ComputerID>
+			<ComputerID>123456786</ComputerID>
+			<ComputerID>123456785</ComputerID>
+		</Target>
 		<IsUrgent>true</IsUrgent>
 	</SingleAction>
 </BES>
