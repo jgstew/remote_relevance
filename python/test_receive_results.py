@@ -15,6 +15,8 @@ import lxml
 import lxml.etree
 import StringIO
 
+# ntpath used to split URL
+import ntpath
 # http://stackoverflow.com/questions/1761744/python-read-password-from-stdin
 import getpass
 
@@ -37,16 +39,18 @@ BES_PASSWORD = getpass.getpass()
 # http://www.saltycrane.com/blog/2008/10/how-escape-percent-encode-url-python/
 def get_session_relevance(relevance):
     result = requests.get(BES_API_URL + 'query?relevance=' + urllib.quote_plus(relevance), auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
+    return ';'.join( get_xpath_from_xml( result.text, '/BESAPI/Query/Result/Answer/text()' ) )
+
+def get_xpath_from_xml(xmlString, xpath):
     # http://lxml.de/xpathxslt.html
     
     # the following turns the string into a IO file type object, which lxml.etree.parse requires
-    ioResult = StringIO.StringIO(result.text)
+    ioResult = StringIO.StringIO(xmlString)
     # https://docs.python.org/2/library/stdtypes.html#bltin-file-objects
     # the following line skips the XML decleration at the beginning of the result which trips up lxml.etree.parse
     ioResult.next()
     # http://stackoverflow.com/questions/5618878/how-to-convert-list-to-string
-    return ';'.join( ( lxml.etree.parse( ioResult ) ).xpath('/BESAPI/Query/Result/Answer/text()') )
-
+    return ( lxml.etree.parse( ioResult ) ).xpath( xpath )
 
 def get_computergroup_resource_url(bes_computer_group_id):
     relevance = 'concatenations "/" of ( ( if operator site flag of it then "operator" else if custom site flag of it then "custom" else if master site flag of it then "actionsite" else "external" ) of site of it; name of site of it; (it as string) of id of it) of bes computer groups whose(id of it = '+ bes_computer_group_id +')'
@@ -55,7 +59,13 @@ def get_computergroup_resource_url(bes_computer_group_id):
 
 def get_computerids_from_computergroup(bes_computer_group_id):
     result = requests.get( get_computergroup_resource_url(bes_computer_group_id) + "/computers" , auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
-    return result.text
+    # http://stackoverflow.com/questions/4835891/how-to-extract-attribute-s-value-through-xpath
+    computer_url_list = get_xpath_from_xml( result.text, '/BESAPI/Computer/@Resource' )
+    computer_list = list()
+    for strURL in computer_url_list:
+        head, tail = ntpath.split(strURL)
+        computer_list.append(tail)
+    return computer_list
 
 
 # define Flask app
@@ -90,8 +100,8 @@ def rest_bes_query_submit(bes_query):
 
 
 if __name__ == '__main__':
-    print get_computerids_from_computergroup(BES_COMPUTER_GROUP)
+    #print get_computerids_from_computergroup(BES_COMPUTER_GROUP)
     #app.run(host='0.0.0.0', port=8080)
-    #print "doing nothing, just testing  " + BES_API_URL
+    print "doing nothing, just testing  " + BES_API_URL
 else:
     app.run(host='0.0.0.0', port=80)
