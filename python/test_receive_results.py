@@ -11,7 +11,8 @@ import getpass
 # config file where BES_ROOT_SERVER_DNS and similar are set
 from BES_CONFIG import *
 
-BES_PASSWORD = getpass.getpass()
+BES_API_URL = "https://" + BES_ROOT_SERVER_DNS + ":" + BES_ROOT_SERVER_PORT + "/api/"
+#BES_PASSWORD = getpass.getpass()
 
 app = Flask(__name__)
 
@@ -33,11 +34,13 @@ def rest_bes_query_result(bes_result):
     return "<b>result:</b> " + bes_result + " <br/><b>base64decode:</b> " + result
 
 
-#http://isbullsh.it/2012/06/Rest-api-in-python/
+# http://isbullsh.it/2012/06/Rest-api-in-python/
+# https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Action
 @app.route('/remote/query/<path:bes_query>')
-def rest_bes_query(bes_query):
-    print "https://" + BES_ROOT_SERVER_DNS + ":" + BES_ROOT_SERVER_PORT + "/api/"
+def rest_bes_query_submit(bes_query):
+    print BES_API_URL
     return bes_query + " "
+
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=8080)
