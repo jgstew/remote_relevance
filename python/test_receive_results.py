@@ -1,6 +1,5 @@
 
-import sys
-sys.dont_write_bytecode = True
+# python proof of concept of remote relevance using REST APIs
 
 from flask import Flask
 import requests
@@ -12,8 +11,21 @@ import getpass
 from BES_CONFIG import *
 
 BES_API_URL = "https://" + BES_ROOT_SERVER_DNS + ":" + BES_ROOT_SERVER_PORT + "/api/"
-#BES_PASSWORD = getpass.getpass()
+BES_PASSWORD = getpass.getpass()
 
+
+# https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Computer%20Group
+# https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Relevance
+# computergroup/{site type}/{site name}/{id}/computers
+def get_computerids_from_computergroup(bes_computer_group_id):
+    #data = json.dumps({'relevance':'concatenations+"/"+of+(+(+if+operator+site+flag+of+it+then+"operator"+else+if+custom+site+flag+of+it+then+"custom"+else+if+master+site+flag+of+it+then+"actionsite"+else+"external"+)+of+site+of+it,+name+of+site+of+it,+(it+as+string)+of+id+of+it)+of+bes+computer+groups+whose(id+of+it+=+'+ bes_computer_group_id +')' })
+    data = json.dumps({ 'relevance':'True' })
+    r = requests.post(BES_API_URL + 'query', data, auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
+    print r.json, data
+    return "Work in Progress: " + bes_computer_group_id
+
+
+# define Flask app
 app = Flask(__name__)
 
 # http://stackoverflow.com/questions/19995/is-there-some-way-to-push-data-from-web-server-to-browser
@@ -45,7 +57,8 @@ def rest_bes_query_submit(bes_query):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    print get_computerids_from_computergroup(BES_COMPUTER_GROUP)
+    #app.run(host='0.0.0.0', port=8080)
     #print "doing nothing, just testing  " + BES_API_URL
 else:
     app.run(host='0.0.0.0', port=80)
