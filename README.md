@@ -8,6 +8,9 @@ Evaluate relevance on remote systems using BigFix actions.
 - user enters relevance query into webapp
 - webapp creates a BigFix action using REST API targeting a "testing" computer group
 - action uses relevance substitution to return the result to the webapp using CURL(or similar) on the endpoint
+- target computers specifically (computer_ids for client mailboxing) based upon group membership. (dynamically get the list)
+
+Inputs:
 
 Relevance Substitution on Client:
     concatenations "~" of (base64 encode it) of unique values of (it as string) of ( THE_RELEVANCE_QUERY_GOES_HERE )
@@ -51,7 +54,7 @@ http://bigfix.me/relevance/details/3000069
 
 https://forum.bigfix.com/t/what-does-isurgent-do-to-an-action/12836
 
-https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/BES.xsd
+[BES XSD - XML Schema for BES content](https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/BES.xsd)
 
-https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/BESAPI.xsd
+[BESAPI XSD - XML Schema for BESAPI results](https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/BESAPI.xsd)
 
