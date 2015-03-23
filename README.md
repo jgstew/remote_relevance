@@ -1,4 +1,4 @@
-NOTE: This does not actually work yet. Still in initial development. See proof of concept work in python folder
+*NOTE:* This does not actually work yet. Still in initial development. See proof of concept work in python folder
 
 # remote-relevance
 Evaluate relevance on remote systems using BigFix actions.
