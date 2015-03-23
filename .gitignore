@@ -2,6 +2,12 @@
 logs
 *.log
 
+# Config_File
+BES_CONFIG.py
+
+# compiled python files
+*.pyc
+
 # Runtime data
 pids
 *.pid
