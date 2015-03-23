@@ -47,3 +47,5 @@ http://software.bigfix.com/download/bes/misc/BESImport-ExportReference71_080906.
 
 http://www-01.ibm.com/support/knowledgecenter/SS63NW_9.1.0/com.ibm.tem.doc_9.1/Platform/Config/c_actions.html
 
+http://bigfix.me/relevance/details/3000069
+
