@@ -8,6 +8,7 @@ sys.dont_write_bytecode = True
 
 from flask import Flask
 import requests
+import urllib
 import json
 # http://stackoverflow.com/questions/1761744/python-read-password-from-stdin
 import getpass
@@ -23,11 +24,14 @@ BES_PASSWORD = getpass.getpass()
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Relevance
 # computergroup/{site type}/{site name}/{id}/computers
 # http://docs.python-requests.org/en/latest/user/advanced/
+# http://www.saltycrane.com/blog/2008/10/how-escape-percent-encode-url-python/
+def get_computergroup_resource_url(bes_computer_group_id):
+    relevance = 'concatenations "/" of ( ( if operator site flag of it then "operator" else if custom site flag of it then "custom" else if master site flag of it then "actionsite" else "external" ) of site of it; name of site of it; (it as string) of id of it) of bes computer groups whose(id of it = '+ bes_computer_group_id +')'
+    r = requests.get(BES_API_URL + 'query?relevance=' + urllib.quote_plus(relevance), auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
+    print r.text
+    return "Work in Progress: " + BES_API_URL + 'working_on_this'
+
 def get_computerids_from_computergroup(bes_computer_group_id):
-    #data = json.dumps({'relevance':'concatenations+"/"+of+(+(+if+operator+site+flag+of+it+then+"operator"+else+if+custom+site+flag+of+it+then+"custom"+else+if+master+site+flag+of+it+then+"actionsite"+else+"external"+)+of+site+of+it,+name+of+site+of+it,+(it+as+string)+of+id+of+it)+of+bes+computer+groups+whose(id+of+it+=+'+ bes_computer_group_id +')' })
-    data = json.dumps({ 'relevance':'True' })
-    r = requests.post(BES_API_URL + 'query', data, auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
-    print r.json, data
     return "Work in Progress: " + bes_computer_group_id
 
 
@@ -63,7 +67,7 @@ def rest_bes_query_submit(bes_query):
 
 
 if __name__ == '__main__':
-    print get_computerids_from_computergroup(BES_COMPUTER_GROUP)
+    print get_computergroup_resource_url(BES_COMPUTER_GROUP)
     #app.run(host='0.0.0.0', port=8080)
     #print "doing nothing, just testing  " + BES_API_URL
 else:
