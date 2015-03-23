@@ -6,7 +6,7 @@
 		<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
 
 // parameter "results_url" = "http://REPLACE_WITH_SERVER_URL:REPLACE_WITH_SERVER_PORT/REPLACE_WITH_URL_PATH"
-parameter "relevance_result" = "{concatenations "~" of (base64 encode it) of unique values of (it as string) of ( REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY )}"
+parameter "relevance_result" = "{ concatenations "~" of (base64 encode it) of unique values of (it as string) of ( if ( exists true whose (if true then (exists REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY) else false) ) then (REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY) else "Error!" ) }"
 
 // -- START:DOWNLOADS -------------------------
 
