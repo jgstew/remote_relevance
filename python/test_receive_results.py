@@ -36,6 +36,7 @@ def rest_bes_query_result(bes_result):
 
 # http://isbullsh.it/2012/06/Rest-api-in-python/
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Action
+# http://www-01.ibm.com/support/knowledgecenter/SS63NW_9.1.0/com.ibm.tem.doc_9.1/Platform/Config/c_actions.html
 @app.route('/remote/query/<path:bes_query>')
 def rest_bes_query_submit(bes_query):
     print BES_API_URL
@@ -43,7 +44,7 @@ def rest_bes_query_submit(bes_query):
 
 
 if __name__ == '__main__':
-    #app.run(host='0.0.0.0', port=8080)
-    print "doing nothing, just testing"
+    app.run(host='0.0.0.0', port=8080)
+    #print "doing nothing, just testing  " + BES_API_URL
 else:
     app.run(host='0.0.0.0', port=80)
