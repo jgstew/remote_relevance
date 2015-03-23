@@ -17,6 +17,7 @@ BES_PASSWORD = getpass.getpass()
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Computer%20Group
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Relevance
 # computergroup/{site type}/{site name}/{id}/computers
+# http://docs.python-requests.org/en/latest/user/advanced/
 def get_computerids_from_computergroup(bes_computer_group_id):
     #data = json.dumps({'relevance':'concatenations+"/"+of+(+(+if+operator+site+flag+of+it+then+"operator"+else+if+custom+site+flag+of+it+then+"custom"+else+if+master+site+flag+of+it+then+"actionsite"+else+"external"+)+of+site+of+it,+name+of+site+of+it,+(it+as+string)+of+id+of+it)+of+bes+computer+groups+whose(id+of+it+=+'+ bes_computer_group_id +')' })
     data = json.dumps({ 'relevance':'True' })
