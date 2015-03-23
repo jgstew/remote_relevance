@@ -1,6 +1,11 @@
 
 # python proof of concept of remote relevance using REST APIs
 
+#prevent *.pyc creation:   http://stackoverflow.com/questions/154443/how-to-avoid-pyc-files
+import sys
+sys.dont_write_bytecode = True
+
+
 from flask import Flask
 import requests
 import json
