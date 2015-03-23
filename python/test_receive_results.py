@@ -1,7 +1,17 @@
 
+import sys
+sys.dont_write_bytecode = True
+
 from flask import Flask
+import requests
 import json
+# http://stackoverflow.com/questions/1761744/python-read-password-from-stdin
+import getpass
+
+# config file where BES_ROOT_SERVER_DNS and similar are set
 from BES_CONFIG import *
+
+BES_PASSWORD = getpass.getpass()
 
 app = Flask(__name__)
 
@@ -22,12 +32,15 @@ def rest_bes_query_result(bes_result):
     #return "thanks!"
     return "<b>result:</b> " + bes_result + " <br/><b>base64decode:</b> " + result
 
+
+#http://isbullsh.it/2012/06/Rest-api-in-python/
 @app.route('/remote/query/<path:bes_query>')
 def rest_bes_query(bes_query):
     print "https://" + BES_ROOT_SERVER_DNS + ":" + BES_ROOT_SERVER_PORT + "/api/"
     return bes_query + " "
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    #app.run(host='0.0.0.0', port=8080)
+    print "doing nothing, just testing"
 else:
     app.run(host='0.0.0.0', port=80)
