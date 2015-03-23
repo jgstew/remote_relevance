@@ -10,11 +10,14 @@ Evaluate relevance on remote systems using BigFix actions.
 - action uses relevance substitution to return the result to the webapp using CURL(or similar) on the endpoint
 - target computers specifically (computer_ids for client mailboxing) based upon group membership. (dynamically get the list)
 
-Inputs:
+##### Inputs:
 
-Relevance Substitution on Client:
+##### Relevance Substitution on Client:
+
     concatenations "~" of (base64 encode it) of unique values of (it as string) of ( THE_RELEVANCE_QUERY_GOES_HERE )
-Example:
+    
+##### Example:
+
     concatenations "~" of (base64 encode it) of unique values of (it as string) of ( names of regapps )
 
 #### Models?
