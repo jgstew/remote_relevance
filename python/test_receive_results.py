@@ -7,11 +7,17 @@ sys.dont_write_bytecode = True
 
 
 from flask import Flask
+import os
 import requests
 import urllib
 import json
 # http://stackoverflow.com/questions/1761744/python-read-password-from-stdin
 import getpass
+
+# https://github.com/CLCMacTeam/besapi
+# http://stackoverflow.com/questions/89228/calling-an-external-command-in-python
+#os.system('pip install -U -e git+https://github.com/CLCMacTeam/besapi.git#egg=besapi')
+#import besapi
 
 # config file where BES_ROOT_SERVER_DNS and similar are set
 from BES_CONFIG import *
