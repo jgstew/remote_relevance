@@ -4,6 +4,10 @@
 		<Title>RESTAPI: Remote Relevance Template Task TODO</Title>
 		<Relevance>windows of operating system</Relevance>
 		<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+
+parameter "results_url" = "http://REPLACE_WITH_SERVER_URL:REPLACE_WITH_SERVER_PORT/REPLACE_WITH_URL_PATH"
+parameter "relevance_result" = "{concatenations "~" of (base64 encode it) of unique values of (it as string) of ( REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY )}"
+
 // -- START:DOWNLOADS -------------------------
 
 //  - This is the commandline 7zip console which is use to unpack installers
@@ -39,7 +43,8 @@ waithidden __Download\unzip.exe -o "{pathname of file "7za.zip" of folder "__Dow
 waithidden "{ (pathname of file "7za.exe" of folder "__Download" of client folder of current site) }" e -i!Curl.EXE -y -o"{pathname of folder "__Download" of client folder of current site}" "{pathname of file "curl.cab" of folder "__Download" of client folder of current site}"
 
 // CURL
-waithidden "{ (pathname of file "Curl.EXE" of folder "__Download" of client folder of current site) }" -k http://REPLACE_WITH_SERVER_URL:REPLACE_WITH_SERVER_PORT/REPLACE_WITH_URL_PATH/query/{ concatenations "~" of (base64 encode it) of unique values of (it as string) of ( REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY ) }
+waithidden "{ (pathname of file "Curl.EXE" of folder "__Download" of client folder of current site) }" -k { parameter "results_url" }/{ parameter "relevance_result" }
+
 </ActionScript>
 		<IsUrgent>true</IsUrgent>
 	</SingleAction>
