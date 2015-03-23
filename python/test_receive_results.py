@@ -25,11 +25,16 @@ BES_PASSWORD = getpass.getpass()
 # computergroup/{site type}/{site name}/{id}/computers
 # http://docs.python-requests.org/en/latest/user/advanced/
 # http://www.saltycrane.com/blog/2008/10/how-escape-percent-encode-url-python/
+def get_session_relevance(relevance):
+    r = requests.get(BES_API_URL + 'query?relevance=' + urllib.quote_plus(relevance), auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
+    # need to parse answer result from xml body
+    return r.text
+
 def get_computergroup_resource_url(bes_computer_group_id):
     relevance = 'concatenations "/" of ( ( if operator site flag of it then "operator" else if custom site flag of it then "custom" else if master site flag of it then "actionsite" else "external" ) of site of it; name of site of it; (it as string) of id of it) of bes computer groups whose(id of it = '+ bes_computer_group_id +')'
-    r = requests.get(BES_API_URL + 'query?relevance=' + urllib.quote_plus(relevance), auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
-    print r.text
-    return "Work in Progress: " + BES_API_URL + 'working_on_this'
+    result = get_session_relevance(relevance)
+    print result
+    return "Work in Progress: " + BES_API_URL + 'computergroup/working_on_this'
 
 def get_computerids_from_computergroup(bes_computer_group_id):
     return "Work in Progress: " + bes_computer_group_id
