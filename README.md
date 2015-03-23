@@ -49,3 +49,9 @@ http://www-01.ibm.com/support/knowledgecenter/SS63NW_9.1.0/com.ibm.tem.doc_9.1/P
 
 http://bigfix.me/relevance/details/3000069
 
+https://forum.bigfix.com/t/what-does-isurgent-do-to-an-action/12836
+
+https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/BES.xsd
+
+https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/BESAPI.xsd
+
