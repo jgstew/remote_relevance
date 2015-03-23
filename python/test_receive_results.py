@@ -11,6 +11,10 @@ import os
 import requests
 import urllib
 import json
+import lxml
+import lxml.etree
+import StringIO
+
 # http://stackoverflow.com/questions/1761744/python-read-password-from-stdin
 import getpass
 
@@ -32,18 +36,26 @@ BES_PASSWORD = getpass.getpass()
 # http://docs.python-requests.org/en/latest/user/advanced/
 # http://www.saltycrane.com/blog/2008/10/how-escape-percent-encode-url-python/
 def get_session_relevance(relevance):
-    r = requests.get(BES_API_URL + 'query?relevance=' + urllib.quote_plus(relevance), auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
-    # need to parse answer result from xml body
-    return r.text
+    result = requests.get(BES_API_URL + 'query?relevance=' + urllib.quote_plus(relevance), auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
+    # http://lxml.de/xpathxslt.html
+    
+    # the following turns the string into a IO file type object, which lxml.etree.parse requires
+    ioResult = StringIO.StringIO(result.text)
+    # https://docs.python.org/2/library/stdtypes.html#bltin-file-objects
+    # the following line skips the XML decleration at the beginning of the result which trips up lxml.etree.parse
+    ioResult.next()
+    # http://stackoverflow.com/questions/5618878/how-to-convert-list-to-string
+    return ';'.join( ( lxml.etree.parse( ioResult ) ).xpath('/BESAPI/Query/Result/Answer/text()') )
+
 
 def get_computergroup_resource_url(bes_computer_group_id):
     relevance = 'concatenations "/" of ( ( if operator site flag of it then "operator" else if custom site flag of it then "custom" else if master site flag of it then "actionsite" else "external" ) of site of it; name of site of it; (it as string) of id of it) of bes computer groups whose(id of it = '+ bes_computer_group_id +')'
     result = get_session_relevance(relevance)
-    print result
-    return "Work in Progress: " + BES_API_URL + 'computergroup/working_on_this'
+    return BES_API_URL + 'computergroup/' + result
 
 def get_computerids_from_computergroup(bes_computer_group_id):
-    return "Work in Progress: " + bes_computer_group_id
+    result = requests.get( get_computergroup_resource_url(bes_computer_group_id) + "/computers" , auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
+    return result.text
 
 
 # define Flask app
@@ -78,7 +90,7 @@ def rest_bes_query_submit(bes_query):
 
 
 if __name__ == '__main__':
-    print get_computergroup_resource_url(BES_COMPUTER_GROUP)
+    print get_computerids_from_computergroup(BES_COMPUTER_GROUP)
     #app.run(host='0.0.0.0', port=8080)
     #print "doing nothing, just testing  " + BES_API_URL
 else:
