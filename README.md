@@ -3,6 +3,8 @@
 # remote-relevance
 Evaluate relevance on remote systems using BigFix actions.
 
+Action expiration: PT15M (15 min in the future)
+
 #### Concept:
 
 - user enters relevance query into webapp
