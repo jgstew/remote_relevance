@@ -5,7 +5,12 @@ You must set the variables in BES_CONFIG.py
 
 Currently the results are only available on the remote server console, but eventually the idea is to use websockets to deliver them to a web app.
 
-You can test this right now using Nitrious.IO by clicking the following button, changing the config file, pip installing the depedancies, and running:
+You can test this right now using Nitrious.IO by:
+- Signing up for [Nitrious.io ](https://www.nitrous.io/join/Z-mE1InMaxk?utm_source=nitrous.io&utm_medium=copypaste&utm_campaign=referral)
+- clicking the N Hack button
+- changing the config file
+- pip installing the depedancies
+- running:
 
     python workspace\remote-relevance\python\test_receive_results.py
 
