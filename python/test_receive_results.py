@@ -31,7 +31,7 @@ import getpass
 from BES_CONFIG import *
 
 BES_API_URL = "https://" + BES_ROOT_SERVER_DNS + ":" + BES_ROOT_SERVER_PORT + "/api/"
-#BES_PASSWORD = getpass.getpass()
+BES_PASSWORD = getpass.getpass()
 
 
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Computer%20Group
@@ -71,15 +71,25 @@ def get_computerids_from_computergroup(bes_computer_group_id):
 
 # http://stackoverflow.com/questions/1591579/how-to-update-modify-a-xml-file-in-python
 # http://stackoverflow.com/questions/14568605/modify-xml-values-file-using-python
+# http://stackoverflow.com/questions/2502758/update-element-values-using-xml-dom-minidom
+# https://wiki.python.org/moin/MiniDom
 def get_action_xml_query(relevance_query):
-    action_xml_file = open('../Remote_Relevance_Action_TEMPLATE.bes.xml')
-    #xml_action = lxml.etree.ElementTree.parse( action_xml_file )
+    #action_xml_file = open('../Remote_Relevance_Action_TEMPLATE.bes.xml')
+    xml_dom_action = xml.dom.minidom.parse('../Remote_Relevance_Action_TEMPLATE.bes.xml')
     
-    # TODO need to figure out how to select and modify the target and other elements.
-    #target = xml_action.xpath( '/BES/SingleAction/Target' )
+    #print append_computer_ids_to_xml(xml_dom_action)
     
-    #print ( lxml.etree.tostring(xml_action, pretty_print=True, encoding='utf-8', xml_declaration=True) )
+    print xml_dom_action.toxml()
     return "Work in Progress"
+
+def append_computer_ids_to_xml(xml_dom_action):
+    target_elem = xml_dom_action.getElementsByTagName('Target')[0]
+    
+    for computer_id in get_computerids_from_computergroup(BES_COMPUTER_GROUP):
+        computer_id_elem = xml_dom_action.createElement("ComputerID")
+        computer_id_elem.appendChild( xml_dom_action.createTextNode( str(computer_id) ) )
+        target_elem.appendChild( computer_id_elem )
+    return " appended computer ids to target xml element "
 
 # define Flask app
 app = Flask(__name__)
