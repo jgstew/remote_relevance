@@ -7,10 +7,10 @@ Currently the results are only available on the remote server console, but event
 
 You can test this right now using Nitrious.IO by:
 - Signing up for [Nitrious.io ](https://www.nitrous.io/join/Z-mE1InMaxk?utm_source=nitrous.io&utm_medium=copypaste&utm_campaign=referral)
-- clicking the N Hack button
+- clicking the following N Hack button
 - changing the config file
 - pip installing the depedancies
-- running:
+- running the following command
 
     python workspace\remote-relevance\python\test_receive_results.py
 
