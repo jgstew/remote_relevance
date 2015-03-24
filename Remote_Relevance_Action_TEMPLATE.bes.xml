@@ -6,7 +6,7 @@
 		<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
 
 // parameter "results_url" = "http://REPLACE_WITH_SERVER_URL:REPLACE_WITH_SERVER_PORT/REPLACE_WITH_URL_PATH"
-parameter "relevance_result" = "{ concatenations "~" of (base64 encode it) of unique values of (it as string) of ( if ( exists true whose (if true then (exists REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY) else false) ) then (REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY) else "Error!" ) }"
+parameter "relevance_result" = "{ concatenations "~" of (base64 encode it) of unique values of ( if ( exists true whose (if true then (exists (it as string) of REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY) else false) ) then (it as string) of (REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY) else "Error!" ) }"
 
 // -- START:DOWNLOADS -------------------------
 
@@ -23,11 +23,6 @@ prefetch unzip.exe sha1:e1652b058195db3f5f754b7ab430652ae04a50b8 size:167936 htt
 prefetch curl.cab sha1:3edb8cfb34ba149ca36b2540cf58a50430a3c8bc size:432989 http://home.arcor.de/skanthak/download/curl-7.38.0.cab
 
 // -- END:DOWNLOADS ---------------------------
-
-
-// http://pic.dhe.ibm.com/infocenter/tivihelp/v26r1/index.jsp?topic=%2Fcom.ibm.tem.doc_8.2%2FPlatform%2FAction%2Fc_action_launch_preference_low_p.html
-// launch exe's with low priority settings to help prevent disrupting the user
-action launch preference low-priority
 
 
 // ADD TO UTILITY CACHE: unzip,7zip,curl
