@@ -30,7 +30,7 @@ import getpass
 from BES_CONFIG import *
 
 BES_API_URL = "https://" + BES_ROOT_SERVER_DNS + ":" + BES_ROOT_SERVER_PORT + "/api/"
-BES_PASSWORD = getpass.getpass()
+#BES_PASSWORD = getpass.getpass()
 
 
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Computer%20Group
@@ -68,6 +68,13 @@ def get_computerids_from_computergroup(bes_computer_group_id):
         computer_list.append(tail)
     return computer_list
 
+def get_action_xml():
+    action_xml_file = open('../Remote_Relevance_Action_TEMPLATE.bes.xml')
+    xml_action = lxml.etree.parse( action_xml_file )
+    # TODO need to figure out how to select and modify the target and other elements.
+    target = xml_action.xpath( '/BES/SingleAction/Target' )
+    print ( lxml.etree.tostring(xml_action, pretty_print=True, encoding='utf-8', xml_declaration=True) )
+    return "Work in Progress"
 
 # define Flask app
 app = Flask(__name__)
@@ -105,5 +112,6 @@ if __name__ == '__main__':
     #print get_computerids_from_computergroup(BES_COMPUTER_GROUP)
     #app.run(host='0.0.0.0', port=8080)
     print "doing nothing, just testing  " + BES_API_URL
+    print get_action_xml()
 else:
     app.run(host='0.0.0.0', port=80)
