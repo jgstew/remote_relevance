@@ -147,11 +147,9 @@ def rest_bes_query_result(bes_result):
 # http://stackoverflow.com/questions/21498694/flask-get-current-route
 @app.route('/remote/query/<path:bes_query>')
 def rest_bes_query_submit(bes_query):
-    print BES_API_URL
-    print bes_query
-    result = submit_action_xml_rest( bes_query )
-    print result
-    return bes_query + ": " + str(result)
+    print bes_query + ": " + ( bes_query.decode('base64') )
+    result = submit_action_xml_rest( bes_query.decode('base64') )
+    return bes_query + " :::   " + ( bes_query.decode('base64') ) + "<br/><br/>" + result
 
 
 if __name__ == '__main__':
