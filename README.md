@@ -1,5 +1,7 @@
 *NOTE:* Right now the proof of concept in the python folder is working
 
+TODO: write a web app that uses websockets to push the responses to a browser page.
+
 # remote-relevance
 Evaluate relevance on remote systems using BigFix actions.
 
