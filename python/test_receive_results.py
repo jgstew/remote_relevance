@@ -83,13 +83,13 @@ def get_action_xml_query(relevance_query):
     
     # https://wiki.python.org/moin/MiniDom
     # set the server parameter for the action
-    xml_dom_action.getElementsByTagName('Parameter')[0].childNodes[0].nodeValue = REMOTE_RELEVANCE_SERVER
+    xml_dom_action.getElementsByTagName('Parameter')[0].childNodes[0].nodeValue = REMOTE_RELEVANCE_SERVER + '/remote/results'
     
     # set the query   http://www.tutorialspoint.com/python/string_replace.htm
     xml_dom_action.getElementsByTagName('ActionScript')[0].childNodes[0].nodeValue = xml_dom_action.getElementsByTagName('ActionScript')[0].childNodes[0].nodeValue.replace('REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY', relevance_query)
     
     # append computer_ids of target group to action xml
-    #append_computer_ids_to_xml(xml_dom_action)
+    append_computer_ids_to_xml(xml_dom_action)
 
     return xml_dom_action.toxml()
 
@@ -103,6 +103,12 @@ def append_computer_ids_to_xml(xml_dom_action):
         computer_id_elem.appendChild( xml_dom_action.createTextNode( str(computer_id) ) )
         target_elem.appendChild( computer_id_elem )
     return " appended computer ids to target xml element "
+
+def submit_action_xml_rest(relevance_query):
+    action_xml = get_action_xml_query(relevance_query)
+    # http://docs.python-requests.org/en/latest/user/advanced/
+    result = requests.post( BES_API_URL + "/actions" , data=action_xml, auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
+    return result.text
 
 # define Flask app
 app = Flask(__name__)
@@ -137,9 +143,7 @@ def rest_bes_query_submit(bes_query):
 
 
 if __name__ == '__main__':
-    #print get_computerids_from_computergroup(BES_COMPUTER_GROUP)
     #app.run(host='0.0.0.0', port=8080)
-    print "doing nothing, just testing  " + BES_API_URL
-    print get_action_xml_query('names of regapps')
+    print submit_action_xml_rest('names of regapps')
 else:
     app.run(host='0.0.0.0', port=80)
