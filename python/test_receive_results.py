@@ -13,8 +13,9 @@ import urllib
 import json
 import lxml
 import lxml.etree
+import xml.dom.minidom
 import StringIO
-import socket
+#import socket
 
 # ntpath used to split URL
 import ntpath
@@ -68,12 +69,16 @@ def get_computerids_from_computergroup(bes_computer_group_id):
         computer_list.append(tail)
     return computer_list
 
-def get_action_xml():
+# http://stackoverflow.com/questions/1591579/how-to-update-modify-a-xml-file-in-python
+# http://stackoverflow.com/questions/14568605/modify-xml-values-file-using-python
+def get_action_xml_query(relevance_query):
     action_xml_file = open('../Remote_Relevance_Action_TEMPLATE.bes.xml')
-    xml_action = lxml.etree.parse( action_xml_file )
+    #xml_action = lxml.etree.ElementTree.parse( action_xml_file )
+    
     # TODO need to figure out how to select and modify the target and other elements.
-    target = xml_action.xpath( '/BES/SingleAction/Target' )
-    print ( lxml.etree.tostring(xml_action, pretty_print=True, encoding='utf-8', xml_declaration=True) )
+    #target = xml_action.xpath( '/BES/SingleAction/Target' )
+    
+    #print ( lxml.etree.tostring(xml_action, pretty_print=True, encoding='utf-8', xml_declaration=True) )
     return "Work in Progress"
 
 # define Flask app
@@ -112,6 +117,6 @@ if __name__ == '__main__':
     #print get_computerids_from_computergroup(BES_COMPUTER_GROUP)
     #app.run(host='0.0.0.0', port=8080)
     print "doing nothing, just testing  " + BES_API_URL
-    print get_action_xml()
+    print get_action_xml_query('names of regapps')
 else:
     app.run(host='0.0.0.0', port=80)
