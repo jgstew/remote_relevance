@@ -66,3 +66,11 @@ https://forum.bigfix.com/t/what-does-isurgent-do-to-an-action/12836
 [BESAPI XSD - XML Schema for BESAPI results](https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/BESAPI.xsd)
 
 https://github.com/CLCMacTeam/besapi
+
+#### Related:
+
+https://forum.bigfix.com/t/request-for-remote-fixlet-debugger/11651
+
+https://www.ibm.com/developerworks/community/forums/html/topic?id=77777777-0000-0000-0000-000014766146
+
+https://www.ibm.com/developerworks/community/forums/html/topic?id=eec5097b-4636-4281-b444-8eb023814dfb#578f271e-b26a-4d5b-a687-f7e638768670
