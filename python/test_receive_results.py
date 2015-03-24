@@ -77,16 +77,25 @@ def get_action_xml_query(relevance_query):
     #action_xml_file = open('../Remote_Relevance_Action_TEMPLATE.bes.xml')
     xml_dom_action = xml.dom.minidom.parse('../Remote_Relevance_Action_TEMPLATE.bes.xml')
     
-    #print append_computer_ids_to_xml(xml_dom_action)
+    # https://wiki.python.org/moin/MiniDom
+    # set the server parameter for the action
+    xml_dom_action.getElementsByTagName('Parameter')[0].childNodes[0].nodeValue = REMOTE_RELEVANCE_SERVER
     
-    print xml_dom_action.toxml()
-    return "Work in Progress"
+    # set the query
+    xml_dom_action.getElementsByTagName('ActionScript')[0].childNodes[0].nodeValue = xml_dom_action.getElementsByTagName('ActionScript')[0].childNodes[0].nodeValue.replace('REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY', relevance_query)
+    
+    # append computer_ids of target group to action xml
+    #append_computer_ids_to_xml(xml_dom_action)
+
+    return xml_dom_action.toxml()
 
 def append_computer_ids_to_xml(xml_dom_action):
     target_elem = xml_dom_action.getElementsByTagName('Target')[0]
     
+    # https://wiki.python.org/moin/MiniDom
     for computer_id in get_computerids_from_computergroup(BES_COMPUTER_GROUP):
         computer_id_elem = xml_dom_action.createElement("ComputerID")
+        # http://stackoverflow.com/questions/961632/converting-integer-to-string-in-python
         computer_id_elem.appendChild( xml_dom_action.createTextNode( str(computer_id) ) )
         target_elem.appendChild( computer_id_elem )
     return " appended computer ids to target xml element "
