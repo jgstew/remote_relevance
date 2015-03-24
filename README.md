@@ -78,3 +78,5 @@ https://groups.google.com/forum/#!topic/iem-remote-qna/7F16oPdWnh8
 https://www.ibm.com/developerworks/community/forums/html/topic?id=77777777-0000-0000-0000-000014766146
 
 https://www.ibm.com/developerworks/community/forums/html/topic?id=eec5097b-4636-4281-b444-8eb023814dfb#578f271e-b26a-4d5b-a687-f7e638768670
+
+http://bigfix.me/blog/post/2013/12/9/iem-remote-qna
