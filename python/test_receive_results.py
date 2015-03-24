@@ -65,6 +65,7 @@ def get_computergroup_resource_url(bes_computer_group_id):
     result = get_session_relevance(relevance)
     return BES_API_URL + 'computergroup/' + result
 
+# http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them
 def get_computerids_from_computergroup(bes_computer_group_id):
     global bes_computer_target_list
     # http://stackoverflow.com/questions/1712227/how-to-get-the-size-of-a-list
