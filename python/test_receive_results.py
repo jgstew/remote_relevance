@@ -32,7 +32,7 @@ from BES_CONFIG import *
 
 BES_API_URL = "https://" + BES_ROOT_SERVER_DNS + ":" + BES_ROOT_SERVER_PORT + "/api/"
 BES_PASSWORD = getpass.getpass()
-
+BES_COMPUTER_TARGETS = list()
 
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Computer%20Group
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Relevance
@@ -60,14 +60,18 @@ def get_computergroup_resource_url(bes_computer_group_id):
     return BES_API_URL + 'computergroup/' + result
 
 def get_computerids_from_computergroup(bes_computer_group_id):
-    result = requests.get( get_computergroup_resource_url(bes_computer_group_id) + "/computers" , auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
-    # http://stackoverflow.com/questions/4835891/how-to-extract-attribute-s-value-through-xpath
-    computer_url_list = get_xpath_from_xml( result.text, '/BESAPI/Computer/@Resource' )
-    computer_list = list()
-    for strURL in computer_url_list:
-        head, tail = ntpath.split(strURL)
-        computer_list.append(tail)
-    return computer_list
+    # http://stackoverflow.com/questions/1712227/how-to-get-the-size-of-a-list
+    if 0 == len(BES_COMPUTER_TARGETS):
+        result = requests.get( get_computergroup_resource_url(bes_computer_group_id) + "/computers" , auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
+        # http://stackoverflow.com/questions/4835891/how-to-extract-attribute-s-value-through-xpath
+        computer_url_list = get_xpath_from_xml( result.text, '/BESAPI/Computer/@Resource' )
+        computer_list = list()
+        for strURL in computer_url_list:
+            head, tail = ntpath.split(strURL)
+            computer_list.append(tail)
+        BES_COMPUTER_TARGETS = computer_list
+    
+    return BES_COMPUTER_TARGETS
 
 # http://stackoverflow.com/questions/1591579/how-to-update-modify-a-xml-file-in-python
 # http://stackoverflow.com/questions/14568605/modify-xml-values-file-using-python
@@ -81,7 +85,7 @@ def get_action_xml_query(relevance_query):
     # set the server parameter for the action
     xml_dom_action.getElementsByTagName('Parameter')[0].childNodes[0].nodeValue = REMOTE_RELEVANCE_SERVER
     
-    # set the query
+    # set the query   http://www.tutorialspoint.com/python/string_replace.htm
     xml_dom_action.getElementsByTagName('ActionScript')[0].childNodes[0].nodeValue = xml_dom_action.getElementsByTagName('ActionScript')[0].childNodes[0].nodeValue.replace('REPLACE_WITH_DESIRED_REMOTE_RELEVANCE_QUERY', relevance_query)
     
     # append computer_ids of target group to action xml
