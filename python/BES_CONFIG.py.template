@@ -7,3 +7,7 @@ BES_USER_NAME = "user"
 BES_COMPUTER_GROUP = "00000"
 REMOTE_RELEVANCE_SERVER = "SET_TO_THE_URL_OF_THIS_REMOTE_RELEVANCE_SERVER:WITH_PORT_NUMBER"
 
+# if using Nitrous.io run the following:
+# python workspace\remote-relevance\python\test_receive_results.py
+
+#  you will need to 'pip install' any dependencies 
