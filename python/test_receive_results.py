@@ -99,7 +99,7 @@ def get_action_xml_query(relevance_query):
     
     # append computer_ids of target group to action xml
     append_computer_ids_to_xml(xml_dom_action)
-
+    
     return xml_dom_action.toxml()
 
 def append_computer_ids_to_xml(xml_dom_action):
@@ -116,7 +116,6 @@ def append_computer_ids_to_xml(xml_dom_action):
 def submit_action_xml_rest(relevance_query):
     action_xml = get_action_xml_query(relevance_query)
     # http://docs.python-requests.org/en/latest/user/advanced/
-    print action_xml
     result = requests.post( BES_API_URL + "actions" , data=action_xml, auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
     return result.text
 
@@ -138,7 +137,7 @@ def rest_bes_query_result(bes_result):
         result = result + "<br/>" + string.decode('base64')
     print result
     #return "thanks!"
-    return "<b>result:</b> " + bes_result + " <br/><b>base64decode:</b> " + result
+    return "<b>result:</b> " + result
 
 
 # http://isbullsh.it/2012/06/Rest-api-in-python/
