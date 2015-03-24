@@ -9,6 +9,12 @@ sys.dont_write_bytecode = True
 from flask import Flask
 import os
 import requests
+
+try:
+    requests.packages.urllib3.disable_warnings()
+except:
+    pass
+
 import urllib
 import json
 import lxml
@@ -32,7 +38,7 @@ from BES_CONFIG import *
 
 BES_API_URL = "https://" + BES_ROOT_SERVER_DNS + ":" + BES_ROOT_SERVER_PORT + "/api/"
 BES_PASSWORD = getpass.getpass()
-BES_COMPUTER_TARGETS = list()
+bes_computer_target_list = list()
 
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Computer%20Group
 # https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/RESTAPI%20Relevance
@@ -60,8 +66,10 @@ def get_computergroup_resource_url(bes_computer_group_id):
     return BES_API_URL + 'computergroup/' + result
 
 def get_computerids_from_computergroup(bes_computer_group_id):
+    global bes_computer_target_list
     # http://stackoverflow.com/questions/1712227/how-to-get-the-size-of-a-list
-    if 0 == len(BES_COMPUTER_TARGETS):
+    # http://stackoverflow.com/questions/3289601/null-object-in-python
+    if (bes_computer_target_list is None) or ( 0 == len(bes_computer_target_list) ):
         result = requests.get( get_computergroup_resource_url(bes_computer_group_id) + "/computers" , auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
         # http://stackoverflow.com/questions/4835891/how-to-extract-attribute-s-value-through-xpath
         computer_url_list = get_xpath_from_xml( result.text, '/BESAPI/Computer/@Resource' )
@@ -69,9 +77,9 @@ def get_computerids_from_computergroup(bes_computer_group_id):
         for strURL in computer_url_list:
             head, tail = ntpath.split(strURL)
             computer_list.append(tail)
-        BES_COMPUTER_TARGETS = computer_list
     
-    return BES_COMPUTER_TARGETS
+        bes_computer_target_list = computer_list
+    return bes_computer_target_list
 
 # http://stackoverflow.com/questions/1591579/how-to-update-modify-a-xml-file-in-python
 # http://stackoverflow.com/questions/14568605/modify-xml-values-file-using-python
@@ -107,7 +115,8 @@ def append_computer_ids_to_xml(xml_dom_action):
 def submit_action_xml_rest(relevance_query):
     action_xml = get_action_xml_query(relevance_query)
     # http://docs.python-requests.org/en/latest/user/advanced/
-    result = requests.post( BES_API_URL + "/actions" , data=action_xml, auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
+    print action_xml
+    result = requests.post( BES_API_URL + "actions" , data=action_xml, auth=(BES_USER_NAME, BES_PASSWORD), verify=False)
     return result.text
 
 # define Flask app
@@ -139,11 +148,13 @@ def rest_bes_query_result(bes_result):
 @app.route('/remote/query/<path:bes_query>')
 def rest_bes_query_submit(bes_query):
     print BES_API_URL
-    return bes_query + " "
+    print bes_query
+    result = submit_action_xml_rest( bes_query )
+    print result
+    return bes_query + ": " + str(result)
 
 
 if __name__ == '__main__':
-    #app.run(host='0.0.0.0', port=8080)
-    print submit_action_xml_rest('names of regapps')
+    app.run(host='0.0.0.0', port=8080)
 else:
     app.run(host='0.0.0.0', port=80)
