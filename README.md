@@ -69,6 +69,8 @@ https://forum.bigfix.com/t/what-does-isurgent-do-to-an-action/12836
 
 https://github.com/CLCMacTeam/besapi
 
+https://www.npmjs.com/package/hljs-bigfix-relevance
+
 #### Related:
 
 https://forum.bigfix.com/t/request-for-remote-fixlet-debugger/11651
