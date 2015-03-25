@@ -8,7 +8,7 @@ Currently the results are only available on the remote server console, but event
 ### You can test this right now using Nitrious.IO by:
 - Sign up for [Nitrious.io ](https://www.nitrous.io/join/Z-mE1InMaxk?utm_source=nitrous.io&utm_medium=copypaste&utm_campaign=referral)
 - click the following N Hack button
-- change the config file
+- rename & change the config file
 - pip install the depedancies
 - running the following command
 
