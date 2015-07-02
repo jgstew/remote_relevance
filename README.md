@@ -1,5 +1,11 @@
-*NOTE:* Right now the proof of concept in the python folder is working
 
+*NOTE:* See a similar project here:  
+- https://relevance.io/
+- https://developer.bigfix.com/
+- https://github.com/bigfix/developer.bigfix.com/tree/master/site/api/relevance-evaluate
+
+
+*NOTE:* Right now the proof of concept in the python folder is working
 TODO: write a web app that uses websockets to push the responses to a browser page.
 
 # remote-relevance
